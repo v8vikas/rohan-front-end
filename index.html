@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    .margin-top-10 {
+        margin-top:10px;
+    }
+    .width-70 {
+      width: 70%;
+    }
+    .text-word-wrap {
+          word-wrap: break-word;
+    }
+    .width-10 {
+      width: 10%;
+    }
+    .height-10 {
+      width: 10%;
+    }
+
+  </style>
+  <body ng-app="app" ng-controller="mainCtrl">
+    <ul class="nav nav-pills">
+      <li class="active"><a data-toggle="pill" class="a-search" href="#search"><span ng-click="getData()">Search</span></a></li>
+      <li><a data-toggle="pill" href="#add">Publish</a></li>
+      <li><a href="javascript:void(0);">About</a></li>
+      <li class="pull-right"><a href="javascript:void(0);">Name</a></li>
+    </ul>
+    <div class="container">
+      <div class="container">
+        <div class="row">
+          <div class="tab-content">
+            <div id="search" class="tab-pane fade in active">
+              <input type="text" class="form-control margin-top-10" placeholder="search" ng-model="text" ng-keyup="filterpost($event)">
+              <div class="w3-container" ng-hide="allFilterdPublish && (allFilterdPublish | searchFilter: text).length == 0">
+                <div class="w3-card-4 margin-top-10" ng-repeat="post in allFilterdPublish | searchFilter: text">
+                  <header class="w3-container w3-blue">
+                    <h1>
+                      {{post.Title}}
+                    </h1>
+                      <p class="small">
+                        by {{post.Author}}
+                        <span class="pull-right small"> Posted: {{post.Time | timeago}}</span>                    
+                      </p>
+                  </header>
+                  <div class="w3-container">
+                    <p class="text-word-wrap">{{post.Abstract}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="alert alert-info margin-top-10" ng-hide="allFilterdPublish && (allFilterdPublish | searchFilter: text).length != 0">
+                Project Not available.
+              </div>
+            </div>
+            <div id="add" class="tab-pane fade">
+              <form name="form" class="col-sm-offset-3 col-sm-6" ng-submit="submitForm()">
+                  <div class="alert alert-info margin-top-10" ng-hide="(message)">{{message}} <a class="pull-right" ng-click="resetMsg()">X</a></div>
+                  <div class="form-group">
+                    <input class="form-control" required ng-minlength="3" type="text" ng-model="form.author" placeholder="Author Name">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control"  type="email" required ng-model="form.email" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control"  type="text" required ng-model="form.title" placeholder="Project Title">
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" ng-model="form.abstract" required rows="4" placeholder="Abstract"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control" ng-model="form.status">
+                      <option ng-value="Completed">Completed</option>
+                      <option ng-value="Started">Started</option>
+                      <option ng-value="Idea">Idea</option>
+                    </select>
+                  </div>
+                  <div class="text-center">
+                    <input class="btn btn-success" type="submit" value="Submit">
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var app = angular.module('app', []); 
+    </script>
+    <script src="./js/controllers.js"></script>
+    <script src="./js/filters.js"></script>
+  </body>
+</html>
