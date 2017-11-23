@@ -59,8 +59,8 @@
               </div>
             </div>
             <div id="add" class="tab-pane fade">
-              <form name="form" class="col-sm-offset-3 col-sm-6" ng-submit="submitForm()">
-                  <div class="alert alert-info margin-top-10" ng-hide="(message)">{{message}} <a class="pull-right" ng-click="resetMsg()">X</a></div>
+              <form name="form" class="col-sm-offset-3 col-sm-6">
+                  <div class="{{!message ? 'hide' :'alert alert-info'}} margin-top-10">{{message}} <a class="pull-right" ng-click="resetMsg()">X</a></div>
                   <div class="form-group">
                     <input class="form-control" required ng-minlength="3" type="text" ng-model="form.author" placeholder="Author Name">
                   </div>
@@ -81,7 +81,7 @@
                     </select>
                   </div>
                   <div class="text-center">
-                    <input class="btn btn-success" type="submit" value="Submit">
+                    <input class="btn btn-success" type="submit" ng-click="submitForm()" value="Submit">
                   </div>
               </form>
             </div>

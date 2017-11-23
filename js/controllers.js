@@ -12,7 +12,7 @@
           return form_data;
         }
         var resetForm = () =>{
-          $scope.resetForm();
+          $scope.resetForm(true);
         }
 
         $scope.resetMsg = () => {
@@ -25,13 +25,15 @@
           xhr.send($scope.getFormData(data));
           xhr.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
-                $scope.message = "Successfully Added."
                 resetForm();
               }
           };
         }
 
-        $scope.resetForm = () =>{
+        $scope.resetForm = (isTrue) =>{
+          if(isTrue) {
+            $scope.message = "Successfully Added."
+          }
           window.scrollTo(0, 0);
           $scope.form = {
               title: '',
@@ -42,7 +44,7 @@
           }
         }
 
-        $scope.resetForm();
+        $scope.resetForm(false);
 
         $scope.submitForm = () =>{
           if($scope.form.$valid) {
